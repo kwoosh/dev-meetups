@@ -10,9 +10,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "vue": "^2.3.4",
+    "vue": "^2.4.1",
     "vue-router": "^2.3.1",
-    "vuetify": "^0.13.0",
+    "vuetify": "^0.14.0",
     "vuex": "^2.3.1"
   },
   "devDependencies": {

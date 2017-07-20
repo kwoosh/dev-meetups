@@ -3,9 +3,9 @@
 
     v-layout( row wrap )
       v-flex( xs12 sm6 class="text-xs-center text-sm-right")
-        v-btn( large router to="/meetups" class="primary") Explore Meetups
+        v-btn( large to="/meetups" class="primary") Explore Meetups
       v-flex( xs12 sm6 class="text-xs-center text-sm-left")
-        v-btn( large router to="/meetup/new" class="primary") Organize Meetup
+        v-btn( large to="/meetup/new" class="primary") Organize Meetup
     
     v-layout( row wrap class="mt-2")
       v-carousel
@@ -16,8 +16,8 @@
           div.title {{ item.title }}
     
     v-layout( row wrap class="mt-2")
-      v-flex( xs12 sm6 class="text-xs-center")
-        p
+      v-flex( xs12 class="text-xs-center")
+        p Join to our awesome meetups!
 
 </template>
 <script>
