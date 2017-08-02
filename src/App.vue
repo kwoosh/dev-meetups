@@ -42,7 +42,7 @@ export default {
       sideNav: false,
       menuItem: [
         { icon: 'supervisor_account', text: 'View Meetups', link: '/meetups' },
-        { icon: 'room', text: 'Organize Meetup', link: '/meetups/new' },
+        { icon: 'room', text: 'Organize Meetup', link: '/meetup/new' },
         { icon: 'person', text: 'Profile', link: '/profile' },
         { icon: 'face', text: 'Sign up', link: '/signup' },
         { icon: 'lock_open', text: 'Sign in', link: '/signin' }

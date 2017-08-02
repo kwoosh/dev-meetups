@@ -33,7 +33,7 @@ export default new VueRouter({
       component: Meetup
     },
     {
-      path: '/meetups/new',
+      path: '/meetup/new',
       name: 'New Meetup',
       component: CreateMeetup
     },
