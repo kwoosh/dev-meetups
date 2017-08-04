@@ -10,19 +10,25 @@ export const store = new Vuex.Store({
         imgUrl: 'https://a6d083dea07dca1c73fc-cb58174e03923271eac4a1b3e4a70779.ssl.cf2.rackcdn.com/uploads/city_info/file/0059/tokyo-01.jpg',
         title: 'Meetup in Tokyo',
         id: 0,
-        date: '2017-07-18'
+        date: '2017-07-18',
+        location: 'Tokyo',
+        description: 'asddddddddddddddddddddaf.kasdlfknaslkdjfnALKWDJFN;ALwkdfm;laskdf;laskdfnm;klasjdfgaklj ;awkd fa e ogjas l ag; a ;glai dgo;id sfjg osdif jgosdi fgiuos diofuhg isoudfng d aosfk gaoe dfig jsod'
       },
       {
         imgUrl: 'https://www.holidayguru.ie/wp-content/uploads/2017/01/Time-Square-New-York-City-iStock-487537456-2.jpg',
         title: 'Meetup in New York',
         id: 1,
-        date: '2017-07-13'
+        date: '2017-07-13',
+        location: 'York',
+        description: 'asddddddddddddddddddddaf.kasdlfknaslkdjfnALKWDJFN;ALwkdfm;laskdf;laskdfnm;klasjdfgaklj ;awkd fa e ogjas l ag; a ;glai dgo;id sfjg osdif jgosdi fgiuos diofuhg isoudfng d aosfk gaoe dfig jsod'
       },
       {
         imgUrl: 'http://kyivcity.travel/KyivPan5.jpg',
         title: 'Meetup in Kyiv',
         id: 2,
-        date: '2017-07-15'
+        date: '2017-07-15',
+        location: 'Kyiv',
+        description: 'asddddddddddddddddddddaf.kasdlfknaslkdjfnALKWDJFN;ALwkdfm;laskdf;laskdfnm;klasjdfgaklj ;awkd fa e ogjas l ag; a ;glai dgo;id sfjg osdif jgosdi fgiuos diofuhg isoudfng d aosfk gaoe dfig jsod'
       },
     ],
     user: {
@@ -38,6 +44,7 @@ export const store = new Vuex.Store({
   actions: {
     createMeetup({commit}, payload) {
       const meetup = {
+        id: 'daadf', //TODO: u need a dimamical id for meetups
         title: payload.title,
         location: payload.location,
         description: payload.description,

@@ -7,8 +7,8 @@
             h6.primary--text {{ meetup.title }}
           v-card-media( :src="meetup.imgUrl" height="400px" )
           v-card-text
-            div.info--text {{ meetup.date }}
-            div  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur optio eos magni quisquam animi, recusandae soluta sint, consectetur eveniet illo laudantium sapiente beatae fugiat quasi debitis rerum expedita fugit, delectus!
+            div.info--text {{ meetup.date }} - {{ meetup.location }}
+            div  {{ meetup.description }}
           v-card-actions
             v-spacer
             v-btn.primary Register
