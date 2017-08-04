@@ -28,7 +28,7 @@
           | {{ item.text }}
     //- main content
     main 
-      router-view 
+      router-view
 
 </template>
 
@@ -55,4 +55,9 @@ export default {
 
 <style lang="stylus">
   @import './stylus/main'
+
+  #app {
+    background-image: url(assets/sports.png)
+    background-repeat: repeat
+  }
 </style>
