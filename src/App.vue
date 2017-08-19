@@ -16,7 +16,7 @@
     v-toolbar( dark class="primary" )
       v-toolbar-side-icon( @click.stop="sideNav = !sideNav" class="hidden-sm-and-up" )
       v-toolbar-title( class="text-xs-center" ) 
-        router-link(to="/" tag="span") DevMeetups
+        router-link(to="/" tag="span") Митапы
       v-spacer
       v-toolbar-items( class="hidden-xs-only" )
         v-btn(
@@ -41,11 +41,11 @@ export default {
     return {
       sideNav: false,
       menuItem: [
-        { icon: 'supervisor_account', text: 'View Meetups', link: '/meetups' },
-        { icon: 'room', text: 'Organize Meetup', link: '/meetup/new' },
-        { icon: 'person', text: 'Profile', link: '/profile' },
-        { icon: 'face', text: 'Sign up', link: '/signup' },
-        { icon: 'lock_open', text: 'Sign in', link: '/signin' }
+        { icon: 'supervisor_account', text: 'Просмотреть встречи', link: '/meetups' },
+        { icon: 'room', text: 'Организовать встречу', link: '/meetup/new' },
+        { icon: 'person', text: 'Профиль', link: '/profile' },
+        { icon: 'face', text: 'Зарегестрироваться', link: '/signup' },
+        { icon: 'lock_open', text: 'Войти', link: '/signin' }
       ]
     }
   },

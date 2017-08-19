@@ -11,7 +11,7 @@
             div  {{ meetup.description }}
           v-card-actions
             v-spacer
-            v-btn.primary Register
+            v-btn.primary Записаться
 </template>
 <script>
   export default {

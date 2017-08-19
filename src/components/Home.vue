@@ -3,9 +3,9 @@
 
     v-layout( row wrap )
       v-flex( xs12 sm6 class="text-xs-center text-sm-right")
-        v-btn( large to="/meetups" class="primary") Explore Meetups
+        v-btn( large to="/meetups" class="primary") Просмотреть встречи
       v-flex( xs12 sm6 class="text-xs-center text-sm-left")
-        v-btn( large to="/meetup/new" class="primary") Organize Meetup
+        v-btn( large to="/meetup/new" class="primary") Организовать Встречу
     
     v-layout( row wrap class="mt-2")
       v-carousel
@@ -18,7 +18,7 @@
     
     v-layout( row wrap class="mt-2")
       v-flex( xs12 class="text-xs-center")
-        p Join to our awesome meetups!
+        p Присоединяйся к нашим невероятным встречам!
 
 </template>
 <script>

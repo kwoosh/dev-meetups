@@ -2,7 +2,7 @@
   v-container
     v-layout( row )
       v-flex( xs12 sm6 offset-sm3)
-        h4.secondary--text Create a new Meetup  
+        h4.secondary--text Организовать сходку
     v-layout( row )
       v-flex( xs12 )
         form( @submit.prevent="onCreateMeetup")
@@ -10,7 +10,7 @@
             v-flex( xs12 sm6 offset-sm3 )
               v-text-field( 
                 name="title" 
-                label="Title" 
+                label="Название" 
                 id="title"
                 v-model="title" 
                 required )
@@ -18,7 +18,7 @@
             v-flex( xs12 sm6 offset-sm3 )
               v-text-field( 
                 name="location" 
-                label="Location" 
+                label="Локация" 
                 id="location"
                 v-model="location" 
                 required )
@@ -26,7 +26,7 @@
             v-flex( xs12 sm6 offset-sm3 )
               v-text-field( 
                 name="imgUrl" 
-                label="Image URL" 
+                label="URL картинки" 
                 id="img-url"
                 v-model="imgUrl" 
                 required )
@@ -37,14 +37,14 @@
             v-flex( xs12 sm6 offset-sm3 )
               v-text-field( 
                 name="description" 
-                label="Description" 
+                label="Описание" 
                 id="description"
                 v-model="description" 
                 multi-line 
                 required )
           v-layout( row )
             v-flex( xs12 sm6 offset-sm3 )
-              h4 Choose Date & Time          
+              h4 Выберете дату и время          
           v-layout( row class="mb-3")
             v-flex( xs12 sm6 offset-sm3 )
               v-date-picker( v-model="date" landscape )
@@ -53,7 +53,7 @@
               v-time-picker( v-model="time" landscape format="24hr")
           v-layout( row )
             v-flex( xs12 sm6 offset-sm3 )
-              v-btn.primary( :disabled="!formIsValid" type="submit" ) Create Meetup
+              v-btn.primary( :disabled="!formIsValid" type="submit" ) Создать встречу
               p {{ validDate | fancyDate}}
 </template>
 <script>

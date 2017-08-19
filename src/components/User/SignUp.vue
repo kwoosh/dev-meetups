@@ -9,7 +9,7 @@
                 v-layout( row )
                   v-text-field( 
                     name="email"
-                    label="Mail"
+                    label="Електронная почта"
                     id="email"
                     v-model="email"
                     type="email"
@@ -17,7 +17,7 @@
                 v-layout( row )
                   v-text-field( 
                     name="password"
-                    label="Password"
+                    label="Пароль"
                     id="password"
                     v-model="password"
                     type="password"
@@ -25,14 +25,14 @@
                 v-layout( row )
                   v-text-field( 
                     name="confirmPassword"
-                    label="Confirm Password"
+                    label="Подтвердить пароль"
                     id="confirmPassword"
                     v-model="confirmPassword"
                     type="password" 
                     :rules="[comparePasswords]" )
                 v-layout( row )
                   v-flex( xs12 )
-                    v-btn( type="submit") Зарегестрироваться
+                    v-btn( type="submit" class="primary") Зарегестрироваться
 </template>
 <script>
   export default {
