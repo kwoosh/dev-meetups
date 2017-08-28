@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as firebase from 'firebase'
 
 Vue.use(Vuex)
 
@@ -31,14 +32,14 @@ export const store = new Vuex.Store({
         description: 'asddddddddddddddddddddaf.kasdlfknaslkdjfnALKWDJFN;ALwkdfm;laskdf;laskdfnm;klasjdfgaklj ;awkd fa e ogjas l ag; a ;glai dgo;id sfjg osdif jgosdi fgiuos diofuhg isoudfng d aosfk gaoe dfig jsod'
       },
     ],
-    user: {
-      id: 'ada123',
-      registeredMeetups: ['asdasfd']
-    }
+    user: null
   },
   mutations: {
     createMeetup(state, payload) {
       state.loadedMeetups.push(payload)
+    },
+    setUser(state, payload) {
+      state.user = payload
     }
   },
   actions: {
@@ -53,6 +54,28 @@ export const store = new Vuex.Store({
       }
       // reach out firebase and store it  
       commit('createMeetup', meetup)
+    },
+    signUserUp({commit}, payload) {
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(user =>{
+          const newUser = {
+            id: user.uid,
+            registeredMeetups: [],
+          }
+          commit('setUser', newUser)
+        })
+        .catch(err => console.log(err))
+    },
+    signUserIn({commit}, payload) {
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+        .then(user => {
+          const newUser = {
+            id: user.uid,
+            registeredMeetups: [], //TODO: тут нужены митапы этого юзера, а не пустой массив
+          }
+          commit('setUser', newUser)
+        })
+        .catch(err => console.log(err))
     }
   },
   getters: {
@@ -64,6 +87,9 @@ export const store = new Vuex.Store({
     },
     loadedMeetup(state) {
       return (id) => state.loadedMeetups.find(meetup => meetup.id == id)
+    },
+    user(state) {
+      return state.user
     }
   }
 })

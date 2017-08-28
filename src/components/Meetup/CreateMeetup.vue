@@ -5,7 +5,7 @@
         h4.secondary--text Организовать сходку
     v-layout( row )
       v-flex( xs12 )
-        form( @submit.prevent="onCreateMeetup")
+        form( @submit.prevent="onCreateMeetup" )
           v-layout( row )
             v-flex( xs12 sm6 offset-sm3 )
               v-text-field( 
@@ -53,7 +53,7 @@
               v-time-picker( v-model="time" landscape format="24hr")
           v-layout( row )
             v-flex( xs12 sm6 offset-sm3 )
-              v-btn.primary( :disabled="!formIsValid" type="submit" ) Создать встречу
+              v-btn.primary( :disabled="!formIsValid" type="submit" class="l") Создать встречу
               p {{ validDate | fancyDate}}
 </template>
 <script>

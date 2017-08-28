@@ -5,7 +5,7 @@
         v-card
           v-card-text
             v-container
-              form
+              form( @submit.prevent="onSignup" )
                 v-layout( row )
                   v-text-field( 
                     name="email"
@@ -46,15 +46,23 @@
     computed: {
       comparePasswords() {
         return this.password !== this.confirmPassword ? 'Пароли не совпадают' : true 
+      },
+      user() {
+        return this.$store.getters.user
+      }
+    },
+    watch: {
+      user(val) {
+        if(val !== null && val !== undefined) {
+          this.$router.push('/')
+        }
       }
     },
     methods: {
       onSignup() {
-        // vuex
-        console.log({ 
+        this.$store.dispatch('signUserUp', { 
           email: this.email,
-          password: this.password,
-          confirmPassword: this.confirmPassword,
+          password: this.password
         })
       }
     }
