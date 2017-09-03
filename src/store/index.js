@@ -32,14 +32,25 @@ export const store = new Vuex.Store({
         description: 'asddddddddddddddddddddaf.kasdlfknaslkdjfnALKWDJFN;ALwkdfm;laskdf;laskdfnm;klasjdfgaklj ;awkd fa e ogjas l ag; a ;glai dgo;id sfjg osdif jgosdi fgiuos diofuhg isoudfng d aosfk gaoe dfig jsod'
       },
     ],
-    user: null
+    user: null,
+    loading: false,
+    error: null
   },
   mutations: {
-    createMeetup(state, payload) {
+    CREATE_MEETUP(state, payload) {
       state.loadedMeetups.push(payload)
     },
-    setUser(state, payload) {
+    SET_USER(state, payload) {
       state.user = payload
+    },
+    SET_LOADING(state, payload) {
+      state.loading = payload
+    },
+    SET_ERROR(state, payload) {
+      state.error = payload
+    },
+    CLEAR_ERROR(state, payload) {
+      state.error = null
     }
   },
   actions: {
@@ -53,29 +64,46 @@ export const store = new Vuex.Store({
         date: payload.date
       }
       // reach out firebase and store it  
-      commit('createMeetup', meetup)
+      commit('CREATE_MEETUP', meetup)
     },
     signUserUp({commit}, payload) {
+      commit('SET_LOADING', true)
+      commit('CLEAR_ERROR')
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(user =>{
+          commit('SET_LOADING', false)
           const newUser = {
             id: user.uid,
             registeredMeetups: [],
           }
-          commit('setUser', newUser)
+          commit('SET_USER', newUser)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          commit('SET_LOADING', false)
+          commit('SET_ERROR', err)
+          console.log(err)
+        })
     },
     signUserIn({commit}, payload) {
+      commit('SET_LOADING', true)
+      commit('CLEAR_ERROR')
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(user => {
+          commit('SET_LOADING', false)
           const newUser = {
             id: user.uid,
             registeredMeetups: [], //TODO: тут нужены митапы этого юзера, а не пустой массив
           }
-          commit('setUser', newUser)
+          commit('SET_USER', newUser)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          commit('SET_LOADING', false)
+          commit('SET_ERROR', err)
+          console.log(err)
+        })
+    },
+    clearError({commit}) {
+      commit('CLEAR_ERROR')
     }
   },
   getters: {
@@ -90,6 +118,12 @@ export const store = new Vuex.Store({
     },
     user(state) {
       return state.user
+    },
+    error(state) {
+      return state.error
+    },
+    loading(state) {
+      return state.loading
     }
   }
 })

@@ -1,5 +1,8 @@
 <template lang="pug">
   v-container
+    v-layout( row v-if="error")
+      v-flex( xs12 sm6 offset-sm3 )
+        app-alert( @dissmissed='onDissmissed' :text='error.message')
     v-layout( row )
       v-flex( xs12 sm6 offset-sm3 )
         v-card
@@ -32,7 +35,14 @@
                     :rules="[comparePasswords]" )
                 v-layout( row )
                   v-flex( xs12 )
-                    v-btn( type="submit" class="primary") Зарегестрироваться
+                    v-btn( 
+                      type="submit" 
+                      class="primary"
+                      :disabled='loading'
+                      :loading='loading') 
+                      | Зарегестрироваться
+                      span( slot='loader' class='castom-loader')
+                        v-icon( light) cached    
 </template>
 <script>
   export default {
@@ -41,14 +51,21 @@
         email: '',
         password: '',
         confirmPassword: '',
+
       }
     },
     computed: {
+      loading() {
+        return this.$store.getters.loading
+      },
       comparePasswords() {
         return this.password !== this.confirmPassword ? 'Пароли не совпадают' : true 
       },
       user() {
         return this.$store.getters.user
+      },
+      error() {
+        return this.$store.getters.error
       }
     },
     watch: {
@@ -64,6 +81,10 @@
           email: this.email,
           password: this.password
         })
+      },
+      onDissmissed() {
+        console.log('Dissmissed Alert')
+        this.$store.dispatch('clearError')
       }
     }
   }

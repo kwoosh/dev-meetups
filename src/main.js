@@ -5,11 +5,14 @@ import App from './App'
 import router from './router'
 import { store } from './store'
 import { fancyDate } from './filters'
+import Alert from './components/Shared/Alert'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
 
 Vue.filter('fancyDate', fancyDate)
+Vue.component('app-alert', Alert)
+
 
 new Vue({
   el: '#app',

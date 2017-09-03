@@ -1,5 +1,8 @@
 <template lang="pug">
   v-container
+    v-layout( row v-if="error")
+      v-flex( xs12 sm6 offset-sm3 )
+        app-alert( @dissmissed='onDissmissed' :text='error.message')
     v-layout( row )
       v-flex( xs12 sm6 offset-sm3 )
         v-card
@@ -22,9 +25,14 @@
                     v-model="password"
                     type="password"
                     required )
-                v-layout( row )
-                  v-flex( xs12 )
-                    v-btn( type="submit" class="primary") Войти
+                v-btn( 
+                  type="submit" 
+                  class="primary"
+                  :disabled='loading'
+                  :loading='loading') 
+                  | Войти
+                  span( slot='loader' class='castom-loader')
+                    v-icon( light) cached  
 </template>
 <script>
   export default {
@@ -35,8 +43,14 @@
       }
     },
     computed: {
+      loading() {
+        return this.$store.getters.loading
+      },
       user() {
         return this.$store.getters.user
+      },
+      error() {
+        return this.$store.getters.error
       }
     },
     watch: {
@@ -52,6 +66,10 @@
           email: this.email,
           password: this.password
         })
+      },
+      onDissmissed() {
+        console.log('Dissmissed Alert')
+        this.$store.dispatch('clearError')
       }
     }
   }
