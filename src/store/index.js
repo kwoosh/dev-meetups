@@ -6,32 +6,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    loadedMeetups: [
-      {
-        imgUrl: 'https://a6d083dea07dca1c73fc-cb58174e03923271eac4a1b3e4a70779.ssl.cf2.rackcdn.com/uploads/city_info/file/0059/tokyo-01.jpg',
-        title: 'Meetup in Tokyo',
-        id: 0,
-        date: '2017-07-18',
-        location: 'Tokyo',
-        description: 'asddddddddddddddddddddaf.kasdlfknaslkdjfnALKWDJFN;ALwkdfm;laskdf;laskdfnm;klasjdfgaklj ;awkd fa e ogjas l ag; a ;glai dgo;id sfjg osdif jgosdi fgiuos diofuhg isoudfng d aosfk gaoe dfig jsod'
-      },
-      {
-        imgUrl: 'https://www.holidayguru.ie/wp-content/uploads/2017/01/Time-Square-New-York-City-iStock-487537456-2.jpg',
-        title: 'Meetup in New York',
-        id: 1,
-        date: '2017-07-13',
-        location: 'York',
-        description: 'asddddddddddddddddddddaf.kasdlfknaslkdjfnALKWDJFN;ALwkdfm;laskdf;laskdfnm;klasjdfgaklj ;awkd fa e ogjas l ag; a ;glai dgo;id sfjg osdif jgosdi fgiuos diofuhg isoudfng d aosfk gaoe dfig jsod'
-      },
-      {
-        imgUrl: 'http://kyivcity.travel/KyivPan5.jpg',
-        title: 'Meetup in Kyiv',
-        id: 2,
-        date: '2017-07-15',
-        location: 'Kyiv',
-        description: 'asddddddddddddddddddddaf.kasdlfknaslkdjfnALKWDJFN;ALwkdfm;laskdf;laskdfnm;klasjdfgaklj ;awkd fa e ogjas l ag; a ;glai dgo;id sfjg osdif jgosdi fgiuos diofuhg isoudfng d aosfk gaoe dfig jsod'
-      },
-    ],
+    loadedMeetups: [],
     user: null,
     loading: false,
     error: null
@@ -51,20 +26,56 @@ export const store = new Vuex.Store({
     },
     CLEAR_ERROR(state, payload) {
       state.error = null
+    },
+    SET_LOADED_MEETUPS(state, payload) {
+      state.loadedMeetups = payload
     }
   },
   actions: {
+    loadMeetups({commit}) {
+      commit('SET_LOADING', true)
+      firebase.database().ref('meetups').once('value')
+        .then(data => {
+          const meetups = []
+          const obj = data.val()
+          console.log(obj)
+          
+          for(let key in obj) {
+            meetups.push({
+              id: key,
+              title: obj[key].title,
+              description: obj[key].description,
+              imgUrl: obj[key].imgUrl,
+              date: obj[key].date,
+            })
+          }
+          commit('SET_LOADED_MEETUPS', meetups)
+          commit('SET_LOADING', false)
+        })
+        .catch((err) => {
+          console.log(err)
+          commit('SET_LOADING', false)          
+        })
+    },
     createMeetup({commit}, payload) {
       const meetup = {
-        id: 'daadf', //TODO: u need a dimamical id for meetups
         title: payload.title,
         location: payload.location,
         description: payload.description,
         imgUrl: payload.imgUrl,
-        date: payload.date
+        date: payload.date.toISOString()
       }
-      // reach out firebase and store it  
-      commit('CREATE_MEETUP', meetup)
+
+      firebase.database().ref('meetups').push(meetup)
+        .then(data => {
+          const key = data.key
+          commit('CREATE_MEETUP', {
+            ...meetup,
+            id: key
+          })
+        }).catch(err => {
+          console.log(err)
+        })
     },
     signUserUp({commit}, payload) {
       commit('SET_LOADING', true)

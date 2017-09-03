@@ -6,8 +6,15 @@
         v-btn( large to="/meetups" class="primary") Просмотреть встречи
       v-flex( xs12 sm6 class="text-xs-center text-sm-left")
         v-btn( large to="/meetup/new" class="primary") Организовать Встречу
-    
-    v-layout( row wrap class="mt-2")
+
+    v-layout( v-if='loading')
+      v-flex( xs12 class="text-xs-center")    
+        v-progress-circular( indeterminate 
+        :size="70" 
+        :width="7" 
+        class="purple--text"
+        )
+    v-layout( row wrap class="mt-2" v-if='!loading')
       v-carousel
         v-carousel-item(
           v-for="(item,i) in meetups"
@@ -26,6 +33,9 @@ export default {
   computed: {
     meetups() {
       return this.$store.getters.featuredMeetups
+    },
+    loading() {
+      return this.$store.getters.loading
     }
   },
   methods: {
