@@ -32,13 +32,17 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    logout({commit}) {
+      firebase.auth().signOut()
+
+      commit('SET_USER', null)
+    },
     loadMeetups({commit}) {
       commit('SET_LOADING', true)
       firebase.database().ref('meetups').once('value')
         .then(data => {
           const meetups = []
           const obj = data.val()
-          console.log(obj)
           
           for(let key in obj) {
             meetups.push({
@@ -47,6 +51,7 @@ export const store = new Vuex.Store({
               description: obj[key].description,
               imgUrl: obj[key].imgUrl,
               date: obj[key].date,
+              creatorId: obj[key].creatorId,
             })
           }
           commit('SET_LOADED_MEETUPS', meetups)
@@ -57,13 +62,14 @@ export const store = new Vuex.Store({
           commit('SET_LOADING', false)          
         })
     },
-    createMeetup({commit}, payload) {
+    createMeetup({commit, getters}, payload) {
       const meetup = {
         title: payload.title,
         location: payload.location,
         description: payload.description,
         imgUrl: payload.imgUrl,
-        date: payload.date.toISOString()
+        date: payload.date.toISOString(),
+        creatorId: getters.user.id
       }
 
       firebase.database().ref('meetups').push(meetup)
@@ -112,6 +118,9 @@ export const store = new Vuex.Store({
           commit('SET_ERROR', err)
           console.log(err)
         })
+    },
+    autoSignIn({commit}, payload) {
+      commit('SET_USER', {id: payload.uid, registeredMeetups: []})
     },
     clearError({commit}) {
       commit('CLEAR_ERROR')

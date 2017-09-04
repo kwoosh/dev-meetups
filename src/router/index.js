@@ -10,7 +10,7 @@ import Profile from '@/components/User/Profile'
 import SignIn from '@/components/User/SignIn'
 import SignUp from '@/components/User/SignUp'
 import Meetup from '@/components/Meetup/Meetup'
-
+import ifAuth from './if-auth'
 
 Vue.use(VueRouter)
 
@@ -35,12 +35,14 @@ export default new VueRouter({
     {
       path: '/meetup/new',
       name: 'New Meetup',
-      component: CreateMeetup
+      component: CreateMeetup,
+      beforeEnter: ifAuth
     },
     {
       path: '/profile',
       name: 'User Profile',
-      component: Profile
+      component: Profile,
+      beforeEnter: ifAuth
     },
     {
       path: '/signin',

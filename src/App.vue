@@ -10,6 +10,11 @@
           v-list-tile-action
             v-icon {{ item.icon }}
           v-list-tile-content {{ item.text }}
+
+        v-list-tile( @click='onLogout' v-if='userIsAuthenticated')
+          v-list-tile-action
+            v-icon exit_to_app
+          v-list-tile-content Выйти
          
 
     //- toolbar content
@@ -19,13 +24,16 @@
         router-link(to="/" tag="span") Митапы
       v-spacer
       v-toolbar-items( class="hidden-xs-only" )
-        v-btn(
-          flat 
+        v-btn( flat 
           v-for="(item, i) in menuItems" 
           :key="i"
           :to="item.link" )
           v-icon( dark ) {{ item.icon }}
           | {{ item.text }}
+
+        v-btn( flat @click='onLogout' v-if='userIsAuthenticated')
+          v-icon( dark ) exit_to_app
+          | Выйти
     //- main content
     main 
       router-view
@@ -38,6 +46,11 @@ export default {
   data() {
     return {
       sideNav: false
+    }
+  },
+  methods: {
+    onLogout() {
+      this.$store.dispatch('logout')
     }
   },
   computed: {
