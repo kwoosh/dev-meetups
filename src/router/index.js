@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// componnents
 //import ThemeBTN from '@/components/ThemeBTN'
+// componnents
 import Home from '@/components/Home'
 import Meetups from '@/components/Meetup/Meetups'
 import CreateMeetup from '@/components/Meetup/CreateMeetup'

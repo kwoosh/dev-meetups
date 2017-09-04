@@ -1,6 +1,6 @@
 export default (val) => {
   const date = new Date(val)
-  return date.toLocaleString(['en-US'], { 
+  return date.toLocaleString(['ru'], { 
     month: 'short',
     day: '2-digit',
     year: 'numeric',
